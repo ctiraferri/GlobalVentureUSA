@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Global Venture USA — Restaurant Intelligence Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1B2D4F;--orange:#E8612A;--white:#FFFFFF;--cream:#FFF8F0;
+  --navy-deep:#0F1A2E;--navy-light:#253D66;--orange-light:#F4845F;
+  --burgundy:#8B1A1A;--gold:#D4A843;--green:#2D8B55;
+  --glass:rgba(27,45,79,.55);--glass-border:rgba(232,97,42,.18);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:'Montserrat',sans-serif;background:var(--navy-deep);color:var(--white);overflow-x:hidden}
+
+/* GRAIN OVERLAY */
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  background-size:256px 256px;opacity:.4}
+
+/* UTILITY */
+.container{max-width:1200px;margin:0 auto;padding:0 32px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:18px 32px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(15,26,46,.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(232,97,42,.08);
+  transition:all .4s}
+nav.scrolled{padding:12px 32px;background:rgba(15,26,46,.95)}
+.nav-logo{display:flex;align-items:center;gap:14px}
+.nav-logo svg{height:38px;width:auto}
+.nav-logo img.isologo{height:44px;width:auto;object-fit:contain}
+.nav-brand{display:none}
+.nav-brand span{color:var(--orange)}
+.nav-links{display:flex;align-items:center;gap:28px}
+.nav-links a{color:rgba(255,255,255,.65);font-size:11px;font-weight:600;letter-spacing:2px;
+  text-transform:uppercase;text-decoration:none;transition:color .3s}
+.nav-links a:hover{color:var(--orange)}
+.lang-toggle{background:rgba(232,97,42,.12);border:1px solid rgba(232,97,42,.3);
+  color:var(--orange);padding:6px 14px;border-radius:20px;font-family:inherit;
+  font-size:10px;font-weight:700;letter-spacing:2px;cursor:pointer;transition:all .3s}
+.lang-toggle:hover{background:var(--orange);color:var(--white)}
+.nav-cta{background:var(--orange);color:var(--white);padding:10px 24px;border:none;
+  border-radius:4px;font-family:inherit;font-size:11px;font-weight:700;letter-spacing:1.5px;
+  text-transform:uppercase;cursor:pointer;transition:all .3s;text-decoration:none}
+.nav-cta:hover{background:var(--orange-light);transform:translateY(-1px)}
+.mobile-menu{display:none;background:none;border:none;color:var(--white);cursor:pointer}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;
+  padding:140px 0 100px;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 20% 50%,rgba(27,45,79,.9),transparent),
+             radial-gradient(ellipse 50% 50% at 80% 30%,rgba(232,97,42,.06),transparent),
+             linear-gradient(180deg,var(--navy-deep),var(--navy))}
+.hero-grid{position:absolute;inset:0;
+  background-image:linear-gradient(rgba(232,97,42,.03) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(232,97,42,.03) 1px,transparent 1px);
+  background-size:60px 60px;mask-image:radial-gradient(ellipse 70% 70% at 50% 50%,black,transparent)}
+.hero .container{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.hero-content{max-width:560px}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;
+  background:rgba(232,97,42,.1);border:1px solid rgba(232,97,42,.2);
+  padding:8px 18px;border-radius:24px;margin-bottom:28px;
+  font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--orange)}
+.hero-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--orange);
+  animation:pulse-dot 2s infinite}
+@keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-size:clamp(36px,5vw,58px);font-weight:900;line-height:1.05;margin-bottom:20px;
+  letter-spacing:-1px}
+.hero h1 .accent{color:var(--orange);display:block}
+.hero-sub{font-size:16px;font-weight:500;line-height:1.7;color:rgba(255,255,255,.6);margin-bottom:36px}
+.hero-actions{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.btn-primary{background:var(--orange);color:var(--white);padding:16px 36px;border:none;
+  border-radius:4px;font-family:inherit;font-size:13px;font-weight:700;letter-spacing:1px;
+  text-transform:uppercase;cursor:pointer;transition:all .3s;text-decoration:none;display:inline-block}
+.btn-primary:hover{background:var(--orange-light);transform:translateY(-2px);box-shadow:0 12px 40px rgba(232,97,42,.3)}
+.btn-outline{background:transparent;color:var(--white);padding:16px 36px;
+  border:1px solid rgba(255,255,255,.2);border-radius:4px;font-family:inherit;font-size:13px;
+  font-weight:600;letter-spacing:1px;text-decoration:none;transition:all .3s;display:inline-block}
+.btn-outline:hover{border-color:var(--orange);color:var(--orange)}
+
+/* HERO DASHBOARD FLOAT */
+.hero-visual{position:relative;height:520px}
+.dash-float{position:absolute;border-radius:12px;overflow:hidden;
+  box-shadow:0 25px 80px rgba(0,0,0,.5);transition:transform .6s cubic-bezier(.23,1,.32,1);
+  border:1px solid rgba(255,255,255,.06)}
+.dash-float:hover{transform:translateY(-8px) scale(1.02)!important}
+.dash-main{top:20px;left:0;width:440px;height:300px;z-index:3;
+  transform:perspective(1200px) rotateY(-8deg) rotateX(3deg)}
+.dash-secondary{top:160px;left:180px;width:340px;height:240px;z-index:4;
+  transform:perspective(1200px) rotateY(-5deg) rotateX(2deg)}
+.dash-mini{top:0;right:0;width:200px;height:150px;z-index:2;
+  transform:perspective(1200px) rotateY(-12deg) rotateX(5deg)}
+
+/* STATS BAR */
+.stats-bar{position:relative;padding:60px 0;background:var(--navy);
+  border-top:1px solid rgba(232,97,42,.08);border-bottom:1px solid rgba(232,97,42,.08)}
+.stats-bar .container{display:grid;grid-template-columns:repeat(4,1fr);gap:40px}
+.stat-item{text-align:center}
+.stat-num{font-size:42px;font-weight:900;color:var(--orange);line-height:1;margin-bottom:6px}
+.stat-label{font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;
+  color:rgba(255,255,255,.45)}
+
+/* PROBLEMS */
+.problems{padding:120px 0;background:var(--white);color:var(--navy);position:relative}
+.problems::before{content:'';position:absolute;top:0;left:0;right:0;height:120px;
+  background:linear-gradient(180deg,var(--navy),transparent);opacity:.03}
+.section-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:3px;
+  text-transform:uppercase;color:var(--orange);margin-bottom:16px;
+  padding-bottom:12px;border-bottom:2px solid var(--orange)}
+.section-title{font-size:clamp(30px,4vw,46px);font-weight:900;line-height:1.1;
+  margin-bottom:20px;letter-spacing:-0.5px}
+.section-sub{font-size:15px;font-weight:500;line-height:1.8;color:rgba(27,45,79,.55);
+  max-width:520px;margin-bottom:60px}
+.problems-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.problem-card{padding:40px 32px;border-radius:12px;position:relative;overflow:hidden;
+  background:var(--cream);border:1px solid rgba(27,45,79,.06);transition:all .4s}
+.problem-card:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(27,45,79,.1);
+  border-color:rgba(232,97,42,.2)}
+.problem-icon{width:52px;height:52px;border-radius:10px;display:flex;align-items:center;
+  justify-content:center;margin-bottom:24px;background:rgba(232,97,42,.08);color:var(--orange)}
+.problem-card h3{font-size:18px;font-weight:800;margin-bottom:12px;color:var(--navy)}
+.problem-card p{font-size:13px;font-weight:500;line-height:1.8;color:rgba(27,45,79,.55)}
+.problem-num{position:absolute;top:20px;right:24px;font-size:64px;font-weight:900;
+  color:rgba(27,45,79,.03);line-height:1}
+
+/* PLATFORM / MODULES */
+.platform{padding:120px 0;background:var(--navy-deep);position:relative;overflow:hidden}
+.platform::before{content:'';position:absolute;top:-200px;right:-200px;width:600px;height:600px;
+  border-radius:50%;background:radial-gradient(circle,rgba(232,97,42,.05),transparent 70%)}
+.platform .section-title,.platform .section-sub{color:var(--white)}
+.platform .section-sub{color:rgba(255,255,255,.5)}
+.modules-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.module-card{padding:36px 28px;border-radius:12px;position:relative;
+  background:var(--glass);backdrop-filter:blur(12px);
+  border:1px solid var(--glass-border);transition:all .4s}
+.module-card:hover{border-color:rgba(232,97,42,.4);transform:translateY(-4px);
+  box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.module-num{font-size:9px;font-weight:700;letter-spacing:2px;color:var(--orange);margin-bottom:16px}
+.module-card h3{font-size:16px;font-weight:800;margin-bottom:10px;color:var(--white)}
+.module-card p{font-size:12px;font-weight:500;line-height:1.8;color:rgba(255,255,255,.45)}
+.module-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.module-tags span{font-size:9px;font-weight:600;letter-spacing:0.5px;padding:4px 10px;
+  border-radius:12px;background:rgba(232,97,42,.08);color:var(--orange);white-space:nowrap}
+
+/* DASHBOARD SHOWCASE */
+.showcase{padding:120px 0;background:var(--white);color:var(--navy);overflow:hidden}
+.showcase-tabs{display:flex;gap:4px;margin-bottom:48px;flex-wrap:wrap}
+.showcase-tab{padding:12px 24px;border-radius:6px;font-size:11px;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;border:none;cursor:pointer;
+  font-family:inherit;transition:all .3s;background:var(--cream);color:rgba(27,45,79,.5)}
+.showcase-tab.active{background:var(--navy);color:var(--white)}
+.showcase-tab:hover:not(.active){background:rgba(27,45,79,.08)}
+.showcase-screen{display:none;border-radius:16px;overflow:hidden;
+  box-shadow:0 30px 80px rgba(27,45,79,.12);border:1px solid rgba(27,45,79,.06)}
+.showcase-screen.active{display:block;animation:fadeUp .5s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+/* SVG DASHBOARD STYLES */
+.dash-svg{width:100%;height:auto;display:block}
+
+/* PRICING */
+.pricing{padding:120px 0;background:var(--navy-deep);position:relative}
+.pricing .section-title{color:var(--white)}
+.pricing .section-sub{color:rgba(255,255,255,.5)}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:60px}
+.price-card{padding:44px 36px;border-radius:16px;position:relative;
+  background:rgba(27,45,79,.6);backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,.06);transition:all .4s}
+.price-card:hover{transform:translateY(-6px);border-color:rgba(232,97,42,.2)}
+.price-card.featured{background:linear-gradient(135deg,rgba(232,97,42,.12),rgba(27,45,79,.8));
+  border-color:rgba(232,97,42,.3);transform:scale(1.03)}
+.price-card.featured:hover{transform:scale(1.03) translateY(-6px)}
+.price-badge{position:absolute;top:-12px;right:24px;background:var(--orange);color:var(--white);
+  padding:6px 16px;border-radius:12px;font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase}
+.price-name{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;
+  color:var(--orange);margin-bottom:12px}
+.price-amount{font-size:52px;font-weight:900;color:var(--white);line-height:1;margin-bottom:4px}
+.price-amount span{font-size:16px;font-weight:600;color:rgba(255,255,255,.4)}
+.price-period{font-size:11px;font-weight:600;color:rgba(255,255,255,.35);margin-bottom:28px}
+.price-desc{font-size:12px;font-weight:500;line-height:1.7;color:rgba(255,255,255,.45);
+  margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid rgba(255,255,255,.06)}
+.price-features{list-style:none;margin-bottom:32px}
+.price-features li{font-size:12px;font-weight:500;color:rgba(255,255,255,.6);
+  padding:8px 0;padding-left:20px;position:relative}
+.price-features li::before{content:'';position:absolute;left:0;top:14px;width:6px;height:6px;
+  border-radius:50%;background:var(--orange)}
+.price-btn{width:100%;padding:14px;border:1px solid rgba(232,97,42,.3);background:transparent;
+  color:var(--orange);border-radius:6px;font-family:inherit;font-size:12px;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .3s}
+.price-btn:hover{background:var(--orange);color:var(--white)}
+.price-card.featured .price-btn{background:var(--orange);color:var(--white);border-color:var(--orange)}
+.price-card.featured .price-btn:hover{background:var(--orange-light)}
+
+/* DIFFERENTIATORS */
+.diff{padding:100px 0;background:var(--white);color:var(--navy)}
+.diff-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:24px;margin-top:48px}
+.diff-item{text-align:center;padding:32px 20px}
+.diff-icon{width:48px;height:48px;margin:0 auto 16px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(232,97,42,.08);color:var(--orange)}
+.diff-item h4{font-size:12px;font-weight:800;margin-bottom:6px;color:var(--navy)}
+.diff-item p{font-size:11px;font-weight:500;line-height:1.6;color:rgba(27,45,79,.45)}
+
+/* CTA SECTION */
+.cta-section{padding:120px 0;background:var(--navy);position:relative;text-align:center;overflow:hidden}
+.cta-section::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(232,97,42,.08),transparent)}
+.cta-section .container{position:relative;z-index:2}
+.cta-section h2{font-size:clamp(32px,4vw,48px);font-weight:900;margin-bottom:16px}
+.cta-section h2 .accent{color:var(--orange)}
+.cta-section p{font-size:15px;font-weight:500;color:rgba(255,255,255,.5);margin-bottom:40px;max-width:500px;margin-left:auto;margin-right:auto;line-height:1.7}
+.cta-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+
+/* FOOTER */
+footer{padding:48px 0;background:var(--navy-deep);border-top:1px solid rgba(255,255,255,.04)}
+footer .container{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
+.footer-copy{font-size:11px;font-weight:500;color:rgba(255,255,255,.3)}
+.footer-links{display:flex;gap:24px}
+.footer-links a{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+  color:rgba(255,255,255,.3);text-decoration:none;transition:color .3s}
+.footer-links a:hover{color:var(--orange)}
+
+/* SCROLL ANIMATIONS */
+.reveal{opacity:0;transform:translateY(40px);transition:all .8s cubic-bezier(.23,1,.32,1)}
+.reveal.visible{opacity:1;transform:none}
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}
+.reveal-delay-4{transition-delay:.4s}
+.reveal-delay-5{transition-delay:.5s}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  .hero .container{grid-template-columns:1fr}
+  .hero-visual{display:none}
+  .modules-grid,.pricing-grid{grid-template-columns:repeat(2,1fr)}
+  .diff-grid{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:768px){
+  .nav-links a:not(.nav-cta){display:none}
+  .mobile-menu{display:block}
+  .stats-bar .container{grid-template-columns:repeat(2,1fr);gap:32px}
+  .problems-grid,.modules-grid,.pricing-grid{grid-template-columns:1fr}
+  .diff-grid{grid-template-columns:repeat(2,1fr)}
+  .price-card.featured{transform:none}
+  .price-card.featured:hover{transform:translateY(-6px)}
+  .showcase-tabs{gap:8px}
+}
+@media(max-width:480px){
+  .container{padding:0 20px}
+  .diff-grid{grid-template-columns:1fr}
+  .stats-bar .container{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav id="nav">
+  <div class="nav-logo">
+    <img class="isologo" src="./isologo.png" alt="Global Venture USA">
+  </div>
+  <div class="nav-links">
+    <a href="#platform" data-en="Platform" data-es="Plataforma">Platform</a>
+    <a href="#showcase" data-en="Dashboards" data-es="Dashboards">Dashboards</a>
+    <a href="#pricing" data-en="Pricing" data-es="Precios">Pricing</a>
+    <button class="lang-toggle" onclick="toggleLang()">ES</button>
+    <a href="#cta" class="nav-cta" data-en="Get a Demo" data-es="Ver Demo">Get a Demo</a>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero">
+  <div class="hero-grid"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-tag" data-en="Restaurant Intelligence" data-es="Inteligencia Gastronómica">Restaurant Intelligence</div>
+      <h1>
+        <span data-en="Operational" data-es="Visibilidad">Operational</span>
+        <span class="accent" data-en="Visibility." data-es="Operativa.">Visibility.</span>
+        <span data-en="Real Results." data-es="Resultados Reales.">Real Results.</span>
+      </h1>
+      <p class="hero-sub" data-en="Dashboards, internal audits & performance analytics designed exclusively for restaurant operations. One platform, every decision." data-es="Dashboards, auditorías internas y analítica de rendimiento diseñados exclusivamente para operaciones gastronómicas. Una plataforma, cada decisión.">Dashboards, internal audits & performance analytics designed exclusively for restaurant operations. One platform, every decision.</p>
+      <div class="hero-actions">
+        <a href="#cta" class="btn-primary" data-en="Schedule a Demo" data-es="Agenda una Demo">Schedule a Demo</a>
+        <a href="#platform" class="btn-outline" data-en="Explore Platform" data-es="Explorar Plataforma">Explore Platform</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <!-- MAIN DASHBOARD MOCKUP -->
+      <div class="dash-float dash-main">
+        <svg viewBox="0 0 440 300" class="dash-svg" xmlns="http://www.w3.org/2000/svg">
+          <rect width="440" height="300" fill="#FFF8F0"/>
+          <rect width="440" height="42" fill="#8B1A1A"/>
+          <text x="20" y="27" fill="white" font-family="Montserrat,sans-serif" font-size="11" font-weight="700">Performance Dashboard</text>
+          <text x="340" y="27" fill="rgba(255,255,255,.6)" font-family="Montserrat,sans-serif" font-size="8" font-weight="600">FY 2025</text>
+          <!-- KPI Cards -->
+          <rect x="16" y="54" width="96" height="52" rx="6" fill="white" stroke="#eee" stroke-width="1"/>
+          <text x="28" y="72" fill="#8B1A1A" font-family="Montserrat,sans-serif" font-size="7" font-weight="600">TOTAL REVENUE</text>
+          <text x="28" y="92" fill="#1B2D4F" font-family="Montserrat,sans-serif" font-size="16" font-weight="900">$2.3M</text>
+          <rect x="120" y="54" width="96" height="52" rx="6" fill="white" stroke="#eee" stroke-width="1"/>
+          <text x="132" y="72" fill="#8B1A1A" font-family="Montserrat,sans-serif" font-size="7" font-weight="600">TOTAL ORDERS</text>
+          <text x="132" y="92" fill="#1B2D4F" font-family="Montserrat,sans-serif" font-size="16" font-weight="900">37.4K</text>
+          <rect x="224" y="54" width="96" height="52" rx="6" fill="white" stroke="#eee" stroke-width="1"/>
+          <text x="236" y="72" fill="#8B1A1A" font-family="Montserrat,sans-serif" font-size="7" font-weight="600">AVG TICKET</text>
+          <text x="236" y="92" fill="#1B2D4F" font-family="Montserrat,sans-serif" font-size="16" font-weight="900">$6.3</text>
+          <rect x="328" y="54" width="96" height="52" rx="6" fill="white" stroke="#eee" stroke-width="1"/>
+          <text x="340" y="72" fill="#8B1A1A" font-family="Montserrat,sans-serif" font-size="7" font-weight="600">GUESTS</text>
+          <text x="340" y="92" fill="#1B2D4F" font-family="Montserrat,sans-serif" font-size="16" font-weight="900">8.1K</text>
+          <!-- Revenue Trend Line Chart -->
+          <rect x="16" y="116" width="270" height="170" rx="6" fill="white" stroke="#eee" stroke-width="1"/>
+          <text x="28" y="136" fill="#1B2D4F" font-family="Montserrat,sans-serif" font-size="8" font-weight="700">Monthly Revenue Trend</text>
+          <polyline points="40,260 72,240 104,250 136,235 168,225 200,215 232,208 264,195" fill="none" stroke="#8B1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <polyline points="40,260 72,240 104,250 136,235 168,225 200,215 232,208 264,195" fill="url(#revGrad)" stroke="none" opacity=".15"/>
+          <defs><linearGradient id="revGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#8B1A1A"/><stop offset="100%" stop-color="#8B1A1A" stop-opacity="0"/></linearGradient></defs>
+          <circle cx="264" cy="195" r="4" fill="#8B1A1A"/>
+          <line x1="40" y1="270" x2="264" y2="270" stroke="#eee" stroke-width="1"/>
+          <text x="40" y="280" fill="#999" font-family="Montserrat,sans-serif" font-size="6">Jan</text>
+          <text x="104" y="280" fill="#999" font-family="Montserrat,sans-serif" font-size="6">Mar</text>
+          <text x="168" y="280" fill="#999" font-family="Montserrat,sans-serif" font-size="6">May</text>
+          <text x="232" y="280" fill="#999" font-family="Montserrat,sans-serif" font-size="6">Jul</text>
+          <!-- Donut Chart -->
+          <rect x="296" y="116" width="128" height="170" rx="6" fill="white" stroke="#eee" stroke-width="1"/>
+          <text x="308" y="136" fill="#1B2D4F" font-family="Montserrat,sans-serif" font-size="8" font-weight="700">By Service</text>
+          <circle cx="360" cy="210" r="40" fill="none" stroke="#E8612A" stroke-width="14" stroke-dasharray="170 251" stroke-dashoffset="0"/>
+          <circle cx="360" cy="210" r="40" fill="none" stroke="#2D8B55" stroke-width="14" stroke-dasharray="56 251" stroke-dashoffset="-170"/>
+          <circle cx="360" cy="210" r="40" fill="none" stroke="#D4A843" stroke-width="14" stroke-dasharray="25 251" stroke-dashoffset="-226"/>
+          <text x="344" y="214" fill="#1B2D4F" font-family="Montserrat,sans-serif" font-size="10" font-weight="800">67%</text>
+          <circle cx="312" cy="266" r="3" fill="#E8612A"/><text x="318" y="269" fill="#666" font-family="Montserrat,sans-serif" font-size="6">Dinner</text>
+          <circle cx="352" cy="266" r="3" fill="#2D8B55"/><text x="358" y="269" fill="#666" font-family="Montserrat,sans-serif" font-size="6">Lunch</text>
+          <circle cx="390" cy="266" r="3" fill="#D4A843"/><text x="396" y="269" fill="#666" font-family="Montserrat,sans-serif" font-size="6">Other</text>
+        </svg>
+      </div>
+      <!-- SECONDARY DASHBOARD -->
+      <div class="dash-float dash-secondary">
+        <svg viewBox="0 0 340 240" class="dash-svg" xmlns="http://www.w3.org/2000/svg">
+          <rect width="340" height="240" fill="#FFF8F0"/>
+          <rect width="340" height="36" fill="#8B1A1A"/>
+          <text x="16" y="23" fill="white" font-family="Montserrat,sans-serif" font-size="10" font-weight="700">Revenue by Location</text>
+          <!-- Bar Chart -->
+          <g transform="translate(30,56)">
+            <rect x="0" y="30" width="36" height="130" rx="3" fill="#E8612A" opacity=".85"/>
+            <rect x="42" y="50" width="36" height="110" rx="3" fill="#2D8B55" opacity=".85"/>
+            <rect x="84" y="65" width="36" height="95" rx="3" fill="#8B1A1A" opacity=".85"/>
+            <rect x="126" y="45" width="36" height="115" rx="3" fill="#D4A843" opacity=".85"/>
+            <rect x="168" y="80" width="36" height="80" rx="3" fill="#1B2D4F" opacity=".65"/>
+            <rect x="210" y="60" width="36" height="100" rx="3" fill="#E8612A" opacity=".6"/>
+            <text x="10" y="175" fill="#999" font-family="Montserrat,sans-serif" font-size="7">Store 1</text>
+            <text x="50" y="175" fill="#999" font-family="Montserrat,sans-serif" font-size="7">Store 2</text>
+            <text x="92" y="175" fill="#999" font-family="Montserrat,sans-serif" font-size="7">Store 3</text>
+            <text x="134" y="175" fill="#999" font-family="Montserrat,sans-serif" font-size="7">Store 4</text>
+            <text x="176" y="175" fill="#999" font-family="Montserrat,sans-serif" font-size="7">Store 5</text>
+            <text x="218" y="175" fill="#999" font-family="Montserrat,sans-serif" font-size="7">Store 6</text>
+            <text x="8" y="24" fill="#1B2D4F" font-family="Montserrat,sans-serif" font-size="8" font-weight="700">$405K</text>
+            <text x="50" y="44" fill="#1B2D4F" font-family="Montserrat,sans-serif" font-size="8" font-weight="700">$346K</text>
+            <text x="92" y="59" fill="#1B2D4F" font-family="Montserrat,sans-serif" font-size="8" font-weight="700">$298K</text>
+            <text x="132" y="39" fill="#1B2D4F" font-family="Montserrat,sans-serif" font-size="8" font-weight="700">$363K</text>
+            <text x="176" y="74" fill="#1B2D4F" font-family="Montserrat,sans-serif" font-size="8" font-weight="700">$251K</text>
+            <text x="216" y="54" fill="#1B2D4F" font-family="Montserrat,sans-serif" font-size="8" font-weight="700">$314K</text>
+          </g>
+        </svg>
+      </div>
+      <!-- MINI KPI -->
+      <div class="dash-float dash-mini">
+        <svg viewBox="0 0 200 150" class="dash-svg" xmlns="http://www.w3.org/2000/svg">
+          <rect width="200" height="150" fill="white" rx="8"/>
+          <text x="16" y="28" fill="#8B1A1A" font-family="Montserrat,sans-serif" font-size="8" font-weight="700">SALES TARGET</text>
+          <text x="16" y="56" fill="#1B2D4F" font-family="Montserrat,sans-serif" font-size="22" font-weight="900">74.9%</text>
+          <rect x="16" y="70" width="168" height="8" rx="4" fill="#eee"/>
+          <rect x="16" y="70" width="126" height="8" rx="4" fill="#E8612A"/>
+          <text x="16" y="100" fill="#2D8B55" font-family="Montserrat,sans-serif" font-size="9" font-weight="700">↑ 12.3%</text>
+          <text x="70" y="100" fill="#999" font-family="Montserrat,sans-serif" font-size="8" font-weight="500">vs last month</text>
+          <polyline points="16,130 40,125 60,128 80,118 100,120 120,112 140,115 168,108" fill="none" stroke="#2D8B55" stroke-width="1.5" stroke-linecap="round" opacity=".6"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STATS BAR ===== -->
+<section class="stats-bar">
+  <div class="container">
+    <div class="stat-item reveal">
+      <div class="stat-num" data-count="6">0</div>
+      <div class="stat-label" data-en="Analytics Modules" data-es="Módulos Analíticos">Analytics Modules</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-1">
+      <div class="stat-num" data-count="100" data-suffix="%">0%</div>
+      <div class="stat-label" data-en="Cloud-Based" data-es="100% en la Nube">Cloud-Based</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-2">
+      <div class="stat-num" data-count="30" data-suffix=" min">0</div>
+      <div class="stat-label" data-en="Demo Duration" data-es="Duración del Demo">Demo Duration</div>
+    </div>
+    <div class="stat-item reveal reveal-delay-3">
+      <div class="stat-num" data-count="0" data-suffix="" data-text="∞">∞</div>
+      <div class="stat-label" data-en="Locations Supported" data-es="Locaciones Soportadas">Locations Supported</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROBLEMS ===== -->
+<section class="problems" id="problems">
+  <div class="container">
+    <div class="section-tag reveal" data-en="The Challenge" data-es="El Desafío">The Challenge</div>
+    <h2 class="section-title reveal" data-en="Running a restaurant today requires much more than intuition" data-es="Gestionar un restaurante hoy requiere mucho más que intuición">Running a restaurant today requires much more than intuition</h2>
+    <p class="section-sub reveal" data-en="Margins are tight, teams rotate constantly, suppliers change prices, and operational issues often remain invisible until they become costly." data-es="Los márgenes son ajustados, los equipos rotan constantemente, los proveedores cambian precios y los problemas operativos permanecen invisibles hasta que se vuelven costosos.">Margins are tight, teams rotate constantly, suppliers change prices, and operational issues often remain invisible until they become costly.</p>
+    <div class="problems-grid">
+      <div class="problem-card reveal">
+        <div class="problem-num">01</div>
+        <div class="problem-icon">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+        </div>
+        <h3 data-en="Lack of Operational Visibility" data-es="Falta de Visibilidad Operativa">Lack of Operational Visibility</h3>
+        <p data-en="Managers rely on fragmented reports from POS systems and spreadsheets, making it difficult to understand what is really happening." data-es="Los gerentes dependen de reportes fragmentados de sistemas POS y planillas, dificultando entender qué sucede realmente.">Managers rely on fragmented reports from POS systems and spreadsheets, making it difficult to understand what is really happening.</p>
+      </div>
+      <div class="problem-card reveal reveal-delay-1">
+        <div class="problem-num">02</div>
+        <div class="problem-icon">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6"/></svg>
+        </div>
+        <h3 data-en="Poor Cost Control" data-es="Control de Costos Deficiente">Poor Cost Control</h3>
+        <p data-en="Food cost, supplier prices, and purchasing patterns often drift without a clear monitoring structure." data-es="El costo de alimentos, precios de proveedores y patrones de compra se desvían sin una estructura clara de monitoreo.">Food cost, supplier prices, and purchasing patterns often drift without a clear monitoring structure.</p>
+      </div>
+      <div class="problem-card reveal reveal-delay-2">
+        <div class="problem-num">03</div>
+        <div class="problem-icon">
+          <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+        </div>
+        <h3 data-en="Inconsistent Standards" data-es="Estándares Inconsistentes">Inconsistent Standards</h3>
+        <p data-en="Quality and service levels depend heavily on individual managers and lack structured auditing processes." data-es="La calidad y el nivel de servicio dependen de gerentes individuales y carecen de procesos de auditoría estructurados.">Quality and service levels depend heavily on individual managers and lack structured auditing processes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PLATFORM MODULES ===== -->
+<section class="platform" id="platform">
+  <div class="container">
+    <div class="section-tag reveal" data-en="Platform Capabilities" data-es="Capacidades de la Plataforma">Platform Capabilities</div>
+    <h2 class="section-title reveal" data-en="Six integrated modules. One decision-making environment." data-es="Seis módulos integrados. Un solo entorno de decisión.">Six integrated modules. One decision-making environment.</h2>
+    <p class="section-sub reveal" data-en="The platform combines data analytics, operational monitoring, and internal control tools — purpose-built for restaurant operations." data-es="La plataforma combina analítica de datos, monitoreo operativo y herramientas de control interno — diseñada específicamente para operaciones gastronómicas.">The platform combines data analytics, operational monitoring, and internal control tools — purpose-built for restaurant operations.</p>
+    <div class="modules-grid">
+      <div class="module-card reveal">
+        <div class="module-num">MODULE 01</div>
+        <h3 data-en="Sales Performance Analytics" data-es="Analítica de Ventas">Sales Performance Analytics</h3>
+        <p data-en="Track revenue and operational performance across all locations with intuitive dashboards." data-es="Monitoree ingresos y rendimiento operativo en todas las locaciones con dashboards intuitivos.">Track revenue and operational performance across all locations with intuitive dashboards.</p>
+        <div class="module-tags">
+          <span data-en="Revenue by Location" data-es="Ingresos por Local">Revenue by Location</span>
+          <span data-en="Trends" data-es="Tendencias">Trends</span>
+          <span data-en="Projections" data-es="Proyecciones">Projections</span>
+        </div>
+      </div>
+      <div class="module-card reveal reveal-delay-1">
+        <div class="module-num">MODULE 02</div>
+        <h3 data-en="Product Performance" data-es="Rendimiento de Productos">Product Performance</h3>
+        <p data-en="Understand which menu items drive profitability and identify optimization opportunities." data-es="Entienda qué productos del menú impulsan la rentabilidad e identifique oportunidades de optimización.">Understand which menu items drive profitability and identify optimization opportunities.</p>
+        <div class="module-tags">
+          <span data-en="Product Rankings" data-es="Rankings de Productos">Product Rankings</span>
+          <span data-en="Best Sellers" data-es="Más Vendidos">Best Sellers</span>
+          <span data-en="Menu Mix" data-es="Mix de Menú">Menu Mix</span>
+        </div>
+      </div>
+      <div class="module-card reveal reveal-delay-2">
+        <div class="module-num">MODULE 03</div>
+        <h3 data-en="Guests & Staff" data-es="Clientes & Staff">Guests & Staff</h3>
+        <p data-en="Track guest traffic trends, service performance, and operational workload patterns." data-es="Monitoree tendencias de tráfico, rendimiento del servicio y patrones de carga operativa.">Track guest traffic trends, service performance, and operational workload patterns.</p>
+        <div class="module-tags">
+          <span data-en="Traffic Trends" data-es="Tendencias de Tráfico">Traffic Trends</span>
+          <span data-en="Server Performance" data-es="Rendimiento por Mozo">Server Performance</span>
+        </div>
+      </div>
+      <div class="module-card reveal reveal-delay-1">
+        <div class="module-num">MODULE 04</div>
+        <h3 data-en="Purchasing & Costs" data-es="Compras & Costos">Purchasing & Costs</h3>
+        <p data-en="Monitor ingredient purchases, unit costs, and monthly cost variations to control food cost evolution." data-es="Monitoree compras de ingredientes, costos unitarios y variaciones mensuales para controlar la evolución del food cost.">Monitor ingredient purchases, unit costs, and monthly cost variations to control food cost evolution.</p>
+        <div class="module-tags">
+          <span data-en="Cost Tracking" data-es="Seguimiento de Costos">Cost Tracking</span>
+          <span data-en="Purchasing Volume" data-es="Volumen de Compras">Purchasing Volume</span>
+        </div>
+      </div>
+      <div class="module-card reveal reveal-delay-2">
+        <div class="module-num">MODULE 05</div>
+        <h3 data-en="Supplier Compliance" data-es="Cumplimiento de Proveedores">Supplier Compliance</h3>
+        <p data-en="Track agreed supplier prices, detect cost overruns, and ensure procurement discipline." data-es="Monitoree precios acordados con proveedores, detecte sobrecostos y asegure disciplina de compras.">Track agreed supplier prices, detect cost overruns, and ensure procurement discipline.</p>
+        <div class="module-tags">
+          <span data-en="Price Caps" data-es="Topes de Precio">Price Caps</span>
+          <span data-en="Alerts" data-es="Alertas">Alerts</span>
+          <span data-en="Compliance" data-es="Cumplimiento">Compliance</span>
+        </div>
+      </div>
+      <div class="module-card reveal reveal-delay-3">
+        <div class="module-num">MODULE 06</div>
+        <h3 data-en="Internal Audits" data-es="Auditorías Internas">Internal Audits</h3>
+        <p data-en="Conduct structured operational evaluations across locations with checklists and quality controls." data-es="Realice evaluaciones operativas estructuradas en todas las locaciones con checklists y controles de calidad.">Conduct structured operational evaluations across locations with checklists and quality controls.</p>
+        <div class="module-tags">
+          <span data-en="Checklists" data-es="Checklists">Checklists</span>
+          <span data-en="Quality Control" data-es="Control de Calidad">Quality Control</span>
+          <span data-en="Mystery Shopper" data-es="Cliente Incógnito">Mystery Shopper</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DASHBOARD SHOWCASE ===== -->
+<section class="showcase" id="showcase">
+  <div class="container">
+    <div class="section-tag reveal" data-en="Live Dashboards" data-es="Dashboards en Vivo">Live Dashboards</div>
+    <h2 class="section-title reveal" style="color:var(--navy)" data-en="See your operation in real time" data-es="Vea su operación en tiempo real">See your operation in real time</h2>
+    <p class="section-sub reveal" data-en="Purpose-built analytics screens that turn raw POS data into actionable intelligence." data-es="Pantallas analíticas especializadas que convierten datos crudos del POS en inteligencia accionable.">Purpose-built analytics screens that turn raw POS data into actionable intelligence.</p>
+
+    <div class="showcase-tabs reveal">
+      <button class="showcase-tab active" onclick="showTab(0)" data-en="Executive Overview" data-es="Resumen Ejecutivo">Executive Overview</button>
+      <button class="showcase-tab" onclick="showTab(1)" data-en="Sales Analysis" data-es="Análisis de Ventas">Sales Analysis</button>
+      <button class="showcase-tab" onclick="showTab(2)" data-en="Purchases" data-es="Compras">Purchases</button>
+    </div>
+
+    <!-- TAB 0: Executive Overview -->
+    <div class="showcase-screen active">
+      <svg viewBox="0 0 1100 580" class="dash-svg" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1100" height="580" fill="#FFF8F0"/>
+        <!-- Header -->
+        <rect width="1100" height="52" fill="#8B1A1A"/>
+        <circle cx="28" cy="26" r="10" fill="#E8612A" opacity=".8"/>
+        <text x="46" y="22" fill="rgba(255,255,255,.7)" font-family="Montserrat,sans-serif" font-size="8" font-weight="600">Your Restaurant</text>
+        <text x="46" y="34" fill="rgba(255,255,255,.4)" font-family="Montserrat,sans-serif" font-size="7">Dashboard v3.0</text>
+        <text x="200" y="30" fill="white" font-family="Montserrat,sans-serif" font-size="13" font-weight="800">Performance Dashboard</text>
+        <text x="900" y="30" fill="rgba(255,255,255,.5)" font-family="Montserrat,sans-serif" font-size="9" font-weight="600">FY 2025 · 4 Locations · All figures in USD</text>
+        <!-- Tabs -->
+        <rect x="200" y="40" width="130" height="12" rx="2" fill="rgba(255,255,255,.15)"/>
+        <text x="210" y="49" fill="white" font-family="Montserrat,sans-serif" font-size="7" font-weight="700">Executive Overview</text>
+        <text x="350" y="49" fill="rgba(255,255,255,.4)" font-family="Montserrat,sans-serif" font-size="7" font-weight="600">Sales Analysis</text>
+        <text x="460" y="49" fill="rgba(255,255,255,.4)" font-family="Montserrat,sans-serif" font-size="7" font-weight="600">Guests &amp; Orders</text>
+        <text x="570" y="49" fill="rgba(255,255,255,.4)" font-family="Montserrat,sans-serif" font-size="7" font-weight="600">Product Ranking</text>
+        <text x="690" y="49" fill="rgba(255,255,255,.4)" font-family="Montserrat,sans-serif" font-size="7" font-weight="600">Purchases</text>
+        <text x="780" y="49" fill="rgba(255,255,255,.4)" font-family="Montserrat,sans-serif" font-size="7" font-weight="600">Supplier Compliance</text>
+        <!-- Sidebar -->
+        <rect x="0" y="52" width="170" height="528" fill="#F5EDE3"/>
+        <text x="20" y="82" fill="#8B1A1A" font-family="Montserrat,sans-serif" font-size="9" font-weight="700">2025</text>
+        <rect x="16" y="92" width="140" height="24" rx="4" fill="white" stroke="#ddd" stroke-width=".5"/>
+        <text x="28" y="108" fill="#333" font-family="Montserrat,sans-serif" font-size="9">▾  All Locations</text>
+        <g transform="translate(20,130)">
+          <text x="0" y="0" fill="#8B1A1A" font-size="7" font-family="Montserrat,sans-serif" font-weight="700">LOCATIONS</text>
+          <circle cx="6" cy="16" r="4" fill="#E8612A"/><text x="14" y="19" fill="#555" font-size="8" font-family="Montserrat,sans-serif">Brick Lane</text>
+          <circle cx="6" cy="32" r="4" fill="#2D8B55"/><text x="14" y="35" fill="#555" font-size="8" font-family="Montserrat,sans-serif">Covent Garden</text>
+          <circle cx="6" cy="48" r="4" fill="#8B1A1A"/><text x="14" y="51" fill="#555" font-size="8" font-family="Montserrat,sans-serif">Shoreditch</text>
+          <circle cx="6" cy="64" r="4" fill="#D4A843"/><text x="14" y="67" fill="#555" font-size="8" font-family="Montserrat,sans-serif">Camden</text>
+        </g>
+        <g transform="translate(20,220)">
+          <text x="0" y="0" fill="#8B1A1A" font-size="7" font-family="Montserrat,sans-serif" font-weight="700">MONTH</text>
+          <text x="0" y="18" fill="#aaa" font-size="8" font-family="Montserrat,sans-serif">☐ January</text>
+          <text x="0" y="34" fill="#aaa" font-size="8" font-family="Montserrat,sans-serif">☐ February</text>
+          <text x="0" y="50" fill="#aaa" font-size="8" font-family="Montserrat,sans-serif">☐ March</text>
+          <text x="0" y="66" fill="#aaa" font-size="8" font-family="Montserrat,sans-serif">☐ April</text>
+          <text x="0" y="82" fill="#aaa" font-size="8" font-family="Montserrat,sans-serif">☐ May</text>
+          <text x="0" y="98" fill="#1B2D4F" font-size="8" font-family="Montserrat,sans-serif" font-weight="700">☑ June</text>
+          <text x="0" y="114" fill="#aaa" font-size="8" font-family="Montserrat,sans-serif">☐ July</text>
+        </g>
+        <!-- KPI Cards -->
+        <g transform="translate(190,70)">
+          <rect x="0" y="0" width="170" height="68" rx="6" fill="white" stroke="#eee" stroke-width="1"/>
+          <text x="16" y="22" fill="#8B1A1A" font-size="8" font-family="Montserrat,sans-serif" font-weight="600">TOTAL REVENUE</text>
+          <text x="16" y="50" fill="#1B2D4F" font-size="24" font-family="Montserrat,sans-serif" font-weight="900">$2.3M</text>
+          <rect x="186" y="0" width="170" height="68" rx="6" fill="white" stroke="#eee" stroke-width="1"/>
+          <text x="202" y="22" fill="#8B1A1A" font-size="8" font-family="Montserrat,sans-serif" font-weight="600">TOTAL ORDERS</text>
+          <text x="202" y="50" fill="#1B2D4F" font-size="24" font-family="Montserrat,sans-serif" font-weight="900">37.4K</text>
+          <rect x="372" y="0" width="170" height="68" rx="6" fill="white" stroke="#eee" stroke-width="1"/>
+          <text x="388" y="22" fill="#8B1A1A" font-size="8" font-family="Montserrat,sans-serif" font-weight="600">AVG. TICKET</text>
+          <text x="388" y="50" fill="#1B2D4F" font-size="24" font-family="Montserrat,sans-serif" font-weight="900">$6.3</text>
+          <rect x="558" y="0" width="120" height="68" rx="6" fill="white" stroke="#eee" stroke-width="1"/>
+          <text x="574" y="22" fill="#8B1A1A" font-size="8" font-family="Montserrat,sans-serif" font-weight="600">GUESTS</text>
+          <text x="574" y="50" fill="#1B2D4F" font-size="24" font-family="Montserrat,sans-serif" font-weight="900">8.1K</text>
+          <rect x="694" y="0" width="120" height="68" rx="6" fill="white" stroke="#eee" stroke-width="1"/>
+          <text x="710" y="22" fill="#8B1A1A" font-size="8" font-family="Montserrat,sans-serif" font-weight="600">SALES TARGET</text>
+          <text x="710" y="50" fill="#1B2D4F" font-size="24" font-family="Montserrat,sans-serif" font-weight="900">74.9%</text>
+        </g>
+        <!-- Line Chart: Monthly Revenue Trend -->
+        <g transform="translate(190,158)">
+          <rect x="0" y="0" width="560" height="200" rx="6" fill="white" stroke="#eee" stroke-width="1"/>
+          <text x="16" y="24" fill="#1B2D4F" font-size="10" font-family="Montserrat,sans-serif" font-weight="800">Monthly Revenue Trend</text>
+          <!-- Grid lines -->
+          <line x1="50" y1="50" x2="540" y2="50" stroke="#f0f0f0" stroke-width=".5"/>
+          <line x1="50" y1="90" x2="540" y2="90" stroke="#f0f0f0" stroke-width=".5"/>
+          <line x1="50" y1="130" x2="540" y2="130" stroke="#f0f0f0" stroke-width=".5"/>
+          <line x1="50" y1="170" x2="540" y2="170" stroke="#f0f0f0" stroke-width=".5"/>
+          <!-- Y axis labels -->
+          <text x="16" y="54" fill="#aaa" font-size="7" font-family="Montserrat,sans-serif">$300K</text>
+          <text x="16" y="94" fill="#aaa" font-size="7" font-family="Montserrat,sans-serif">$250K</text>
+          <text x="16" y="134" fill="#aaa" font-size="7" font-family="Montserrat,sans-serif">$200K</text>
+          <text x="16" y="174" fill="#aaa" font-size="7" font-family="Montserrat,sans-serif">$150K</text>
+          <!-- Lines -->
+          <polyline points="50,140 90,125 130,135 170,118 210,108 250,95 290,100 330,88 370,82 410,75 450,70 490,62 530,55" fill="none" stroke="#8B1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <polyline points="50,140 90,125 130,135 170,118 210,108 250,95 290,100 330,88 370,82 410,75 450,70 490,62 530,55" fill="url(#trendFill)" stroke="none" opacity=".08"/>
+          <defs><linearGradient id="trendFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#8B1A1A"/><stop offset="100%" stop-color="#8B1A1A" stop-opacity="0"/></linearGradient></defs>
+          <circle cx="530" cy="55" r="4" fill="#8B1A1A"/>
+          <!-- X axis -->
+          <text x="50" y="186" fill="#aaa" font-size="7" font-family="Montserrat,sans-serif">Jan</text>
+          <text x="130" y="186" fill="#aaa" font-size="7" font-family="Montserrat,sans-serif">Mar</text>
+          <text x="210" y="186" fill="#aaa" font-size="7" font-family="Montserrat,sans-serif">May</text>
+          <text x="290" y="186" fill="#aaa" font-size="7" font-family="Montserrat,sans-serif">Jul</text>
+          <text x="370" y="186" fill="#aaa" font-size="7" font-family="Montserrat,sans-serif">Sep</text>
+          <text x="450" y="186" fill="#aaa" font-size="7" font-family="Montserrat,sans-serif">Nov</text>
+        </g>
+        <!-- Donut: Orders by Service -->
+        <g transform="translate(770,158)">
+          <rect x="0" y="0" width="230" height="200" rx="6" fill="white" stroke="#eee" stroke-width="1"/>
+          <text x="16" y="24" fill="#1B2D4F" font-size="10" font-family="Montserrat,sans-serif" font-weight="800">Orders by Service</text>
+          <circle cx="115" cy="115" r="52" fill="none" stroke="#E8612A" stroke-width="20" stroke-dasharray="220 327" stroke-dashoffset="0"/>
+          <circle cx="115" cy="115" r="52" fill="none" stroke="#2D8B55" stroke-width="20" stroke-dasharray="75 327" stroke-dashoffset="-220"/>
+          <circle cx="115" cy="115" r="52" fill="none" stroke="#D4A843" stroke-width="20" stroke-dasharray="32 327" stroke-dashoffset="-295"/>
+          <text x="95" y="112" fill="#1B2D4F" font-size="14" font-family="Montserrat,sans-serif" font-weight="900">67.2%</text>
+          <text x="97" y="126" fill="#999" font-size="7" font-family="Montserrat,sans-serif" font-weight="600">Dinner</text>
+          <circle cx="40" cy="182" r="4" fill="#E8612A"/><text x="48" y="185" fill="#666" font-size="7" font-family="Montserrat,sans-serif">Dinner 67%</text>
+          <circle cx="120" cy="182" r="4" fill="#2D8B55"/><text x="128" y="185" fill="#666" font-size="7" font-family="Montserrat,sans-serif">Lunch 23%</text>
+          <circle cx="190" cy="182" r="4" fill="#D4A843"/><text x="198" y="185" fill="#666" font-size="7" font-family="Montserrat,sans-serif">Other 10%</text>
+        </g>
+        <!-- Revenue by Location bars -->
+        <g transform="translate(190,378)">
+          <rect x="0" y="0" width="810" height="190" rx="6" fill="white" stroke="#eee" stroke-width="1"/>
+          <text x="16" y="24" fill="#1B2D4F" font-size="10" font-family="Montserrat,sans-serif" font-weight="800">Revenue by Location</text>
+          <!-- Legend -->
+          <rect x="300" y="14" width="8" height="8" rx="1" fill="#E8612A"/><text x="312" y="22" fill="#666" font-size="7" font-family="Montserrat,sans-serif">Dine-in</text>
+          <rect x="370" y="14" width="8" height="8" rx="1" fill="#2D8B55"/><text x="382" y="22" fill="#666" font-size="7" font-family="Montserrat,sans-serif">Takeout</text>
+          <rect x="440" y="14" width="8" height="8" rx="1" fill="#8B1A1A"/><text x="452" y="22" fill="#666" font-size="7" font-family="Montserrat,sans-serif">Delivery</text>
+          <!-- Grouped bars for each month -->
+          <g transform="translate(40,40)">
+            <!-- Jan -->
+            <rect x="0" y="20" width="14" height="100" rx="2" fill="#E8612A" opacity=".8"/>
+            <rect x="16" y="50" width="14" height="70" rx="2" fill="#2D8B55" opacity=".8"/>
+            <rect x="32" y="60" width="14" height="60" rx="2" fill="#8B1A1A" opacity=".8"/>
+            <text x="14" y="132" fill="#aaa" font-size="7" font-family="Montserrat,sans-serif" text-anchor="middle">Jan</text>
+            <!-- Feb -->
+            <rect x="62" y="15" width="14" height="105" rx="2" fill="#E8612A" opacity=".8"/>
+            <rect x="78" y="45" width="14" height="75" rx="2" fill="#2D8B55" opacity=".8"/>
+            <rect x="94" y="55" width="14" height="65" rx="2" fill="#8B1A1A" opacity=".8"/>
+            <text x="78" y="132" fill="#aaa" font-size="7" font-family="Montserrat,sans-serif" text-anchor="middle">Feb</text>
+            <!-- Mar -->
+            <rect x="124" y="10" width="14" height="110" rx="2" fill="#E8612A" opacity=".8"/>
+            <rect x="140" y="40" width="14" height="80" rx="2" fill="#2D8B55" opacity=".8"/>
+            <rect x="156" y="50" width="14" height="70" rx="2" fill="#8B1A1A" opacity=".8"/>
+            <text x="140" y="132" fill="#aaa" font-size="7" font-family="Montserrat,sans-serif" text-anchor="middle">Mar</text>
+            <!-- Apr -->
+            <rect x="186" y="5" width="14" height="115" rx="2" fill="#E8612A" opacity=".8"/>
+            <rect x="202" y="35" width="14" height="85" rx="2" fill="#2D8B55" opacity=".8"/>
+            <rect x="218" y="48" width="14" height="72" rx="2" fill="#8B1A1A" opacity=".8"/>
+            <text x="202" y="132" fill="#aaa" font-size="7" font-family="Montserrat,sans-serif" text-anchor="middle">Apr</text>
+            <!-- May -->
+            <rect x="248" y="0" width="14" height="120" rx="2" fill="#E8612A" opacity=".8"/>
+            <rect x="264" y="30" width="14" height="90" rx="2" fill="#2D8B55" opacity=".8"/>
+            <rect x="280" y="42" width="14" height="78" rx="2" fill="#8B1A1A" opacity=".8"/>
+            <text x="264" y="132" fill="#aaa" font-size="7" font-family="Montserrat,sans-serif" text-anchor="middle">May</text>
+            <!-- Jun -->
+            <rect x="310" y="8" width="14" height="112" rx="2" fill="#D4A843" opacity=".85"/>
+            <rect x="326" y="32" width="14" height="88" rx="2" fill="#D4A843" opacity=".55"/>
+            <rect x="342" y="45" width="14" height="75" rx="2" fill="#D4A843" opacity=".35"/>
+            <text x="326" y="132" fill="#1B2D4F" font-size="7" font-family="Montserrat,sans-serif" text-anchor="middle" font-weight="700">Jun</text>
+            <!-- Jul-Dec abbreviated -->
+            <rect x="372" y="12" width="14" height="108" rx="2" fill="#E8612A" opacity=".5"/>
+            <rect x="388" y="38" width="14" height="82" rx="2" fill="#2D8B55" opacity=".5"/>
+            <text x="386" y="132" fill="#aaa" font-size="7" font-family="Montserrat,sans-serif" text-anchor="middle">Jul</text>
+            <rect x="420" y="18" width="14" height="102" rx="2" fill="#E8612A" opacity=".4"/>
+            <rect x="436" y="42" width="14" height="78" rx="2" fill="#2D8B55" opacity=".4"/>
+            <text x="434" y="132" fill="#aaa" font-size="7" font-family="Montserrat,sans-serif" text-anchor="middle">Aug</text>
+            <rect x="468" y="22" width="14" height="98" rx="2" fill="#E8612A" opacity=".35"/>
+            <rect x="484" y="46" width="14" height="74" rx="2" fill="#2D8B55" opacity=".35"/>
+            <text x="482" y="132" fill="#aaa" font-size="7" font-family="Montserrat,sans-serif" text-anchor="middle">Sep</text>
+          </g>
+        </g>
+        <!-- Watermark -->
+        <text x="990" y="570" fill="rgba(0,0,0,.08)" font-size="7" font-family="Montserrat,sans-serif" font-weight="600" text-anchor="end">Global Venture USA · Platform Preview</text>
+      </svg>
+    </div>
+
+    <!-- TAB 1: Sales Analysis -->
+    <div class="showcase-screen">
+      <svg viewBox="0 0 1100 500" class="dash-svg" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1100" height="500" fill="#FFF8F0"/>
+        <rect width="1100" height="52" fill="#8B1A1A"/>
+        <text x="200" y="30" fill="white" font-family="Montserrat,sans-serif" font-size="13" font-weight="800">Performance Dashboard</text>
+        <rect x="340" y="40" width="100" height="12" rx="2" fill="rgba(255,255,255,.15)"/>
+        <text x="350" y="49" fill="white" font-family="Montserrat,sans-serif" font-size="7" font-weight="700">Sales Analysis</text>
+        <!-- Data Table -->
+        <g transform="translate(190,72)">
+          <rect x="0" y="0" width="810" height="190" rx="6" fill="white" stroke="#eee" stroke-width="1"/>
+          <text x="16" y="24" fill="#1B2D4F" font-size="10" font-family="Montserrat,sans-serif" font-weight="800">Month-over-Month Projections &amp; Variations</text>
+          <!-- Table Header -->
+          <rect x="16" y="36" width="780" height="22" rx="3" fill="#8B1A1A" opacity=".08"/>
+          <text x="28" y="51" fill="#8B1A1A" font-size="8" font-family="Montserrat,sans-serif" font-weight="700">STORE</text>
+          <text x="200" y="51" fill="#8B1A1A" font-size="8" font-family="Montserrat,sans-serif" font-weight="700">NOVEMBER REV</text>
+          <text x="360" y="51" fill="#8B1A1A" font-size="8" font-family="Montserrat,sans-serif" font-weight="700">DECEMBER REV</text>
+          <text x="520" y="51" fill="#8B1A1A" font-size="8" font-family="Montserrat,sans-serif" font-weight="700">PROJECTION</text>
+          <text x="680" y="51" fill="#8B1A1A" font-size="8" font-family="Montserrat,sans-serif" font-weight="700">VAR MoM</text>
+          <!-- Rows -->
+          <text x="28" y="76" fill="#E8612A" font-size="9" font-family="Montserrat,sans-serif" font-weight="700">Brick Lane</text>
+          <text x="220" y="76" fill="#333" font-size="9" font-family="Montserrat,sans-serif">$185,000</text>
+          <text x="380" y="76" fill="#333" font-size="9" font-family="Montserrat,sans-serif">$192,000</text>
+          <text x="540" y="76" fill="#333" font-size="9" font-family="Montserrat,sans-serif">$195,000</text>
+          <rect x="680" y="66" width="52" height="16" rx="3" fill="#2D8B55" opacity=".15"/>
+          <text x="692" y="78" fill="#2D8B55" font-size="9" font-family="Montserrat,sans-serif" font-weight="700">+3.8%</text>
+
+          <text x="28" y="100" fill="#2D8B55" font-size="9" font-family="Montserrat,sans-serif" font-weight="700">Covent Garden</text>
+          <text x="220" y="100" fill="#333" font-size="9" font-family="Montserrat,sans-serif">$142,000</text>
+          <text x="380" y="100" fill="#333" font-size="9" font-family="Montserrat,sans-serif">$155,000</text>
+          <text x="540" y="100" fill="#333" font-size="9" font-family="Montserrat,sans-serif">$148,000</text>
+          <rect x="680" y="90" width="52" height="16" rx="3" fill="#2D8B55" opacity=".15"/>
+          <text x="692" y="102" fill="#2D8B55" font-size="9" font-family="Montserrat,sans-serif" font-weight="700">+9.2%</text>
+
+          <text x="28" y="124" fill="#8B1A1A" font-size="9" font-family="Montserrat,sans-serif" font-weight="700">Shoreditch</text>
+          <text x="220" y="124" fill="#333" font-size="9" font-family="Montserrat,sans-serif">$98,000</text>
+          <text x="380" y="124" fill="#333" font-size="9" font-family="Montserrat,sans-serif">$91,000</text>
+          <text x="540" y="124" fill="#333" font-size="9" font-family="Montserrat,sans-serif">$95,000</text>
+          <rect x="680" y="114" width="52" height="16" rx="3" fill="#8B1A1A" opacity=".15"/>
+          <text x="692" y="126" fill="#8B1A1A" font-size="9" font-family="Montserrat,sans-serif" font-weight="700">-7.1%</text>
+
+          <text x="28" y="148" fill="#D4A843" font-size="9" font-family="Montserrat,sans-serif" font-weight="700">Camden</text>
+          <text x="220" y="148" fill="#333" font-size="9" font-family="Montserrat,sans-serif">$76,000</text>
+          <text x="380" y="148" fill="#333" font-size="9" font-family="Montserrat,sans-serif">$82,000</text>
+          <text x="540" y="148" fill="#333" font-size="9" font-family="Montserrat,sans-serif">$80,000</text>
+          <rect x="680" y="138" width="52" height="16" rx="3" fill="#2D8B55" opacity=".15"/>
+          <text x="692" y="150" fill="#2D8B55" font-size="9" font-family="Montserrat,sans-serif" font-weight="700">+7.9%</text>
+
+          <line x1="16" y1="160" x2="796" y2="160" stroke="#eee" stroke-width="1"/>
+          <text x="28" y="178" fill="#1B2D4F" font-size="9" font-family="Montserrat,sans-serif" font-weight="800">Total</text>
+          <text x="220" y="178" fill="#1B2D4F" font-size="9" font-family="Montserrat,sans-serif" font-weight="800">$501,000</text>
+          <text x="380" y="178" fill="#1B2D4F" font-size="9" font-family="Montserrat,sans-serif" font-weight="800">$520,000</text>
+          <text x="540" y="178" fill="#1B2D4F" font-size="9" font-family="Montserrat,sans-serif" font-weight="800">$518,000</text>
+          <rect x="680" y="168" width="52" height="16" rx="3" fill="#2D8B55" opacity=".2"/>
+          <text x="692" y="180" fill="#2D8B55" font-size="9" font-family="Montserrat,sans-serif" font-weight="800">+3.8%</text>
+        </g>
+        <!-- Avg Ticket bars -->
+        <g transform="translate(190,282)">
+          <rect x="0" y="0" width="400" height="200" rx="6" fill="white" stroke="#eee" stroke-width="1"/>
+          <text x="16" y="24" fill="#1B2D4F" font-size="10" font-family="Montserrat,sans-serif" font-weight="800">Avg. Ticket by Month &amp; Location</text>
+          <g transform="translate(30,44)">
+            <rect x="0" y="0" width="22" height="120" rx="2" fill="#E8612A" opacity=".75"/>
+            <rect x="24" y="10" width="22" height="110" rx="2" fill="#2D8B55" opacity=".75"/>
+            <rect x="48" y="20" width="22" height="100" rx="2" fill="#8B1A1A" opacity=".75"/>
+            <rect x="72" y="15" width="22" height="105" rx="2" fill="#D4A843" opacity=".75"/>
+            <text x="36" y="135" fill="#aaa" font-size="7" font-family="Montserrat,sans-serif" text-anchor="middle">Oct</text>
+            <rect x="110" y="5" width="22" height="115" rx="2" fill="#E8612A" opacity=".75"/>
+            <rect x="134" y="12" width="22" height="108" rx="2" fill="#2D8B55" opacity=".75"/>
+            <rect x="158" y="22" width="22" height="98" rx="2" fill="#8B1A1A" opacity=".75"/>
+            <rect x="182" y="8" width="22" height="112" rx="2" fill="#D4A843" opacity=".75"/>
+            <text x="146" y="135" fill="#aaa" font-size="7" font-family="Montserrat,sans-serif" text-anchor="middle">Nov</text>
+            <rect x="220" y="2" width="22" height="118" rx="2" fill="#E8612A" opacity=".85"/>
+            <rect x="244" y="8" width="22" height="112" rx="2" fill="#2D8B55" opacity=".85"/>
+            <rect x="268" y="18" width="22" height="102" rx="2" fill="#8B1A1A" opacity=".85"/>
+            <rect x="292" y="6" width="22" height="114" rx="2" fill="#D4A843" opacity=".85"/>
+            <text x="256" y="135" fill="#1B2D4F" font-size="7" font-family="Montserrat,sans-serif" text-anchor="middle" font-weight="700">Dec</text>
+          </g>
+        </g>
+        <!-- Revenue Over Time lines -->
+        <g transform="translate(604,282)">
+          <rect x="0" y="0" width="396" height="200" rx="6" fill="white" stroke="#eee" stroke-width="1"/>
+          <text x="16" y="24" fill="#1B2D4F" font-size="10" font-family="Montserrat,sans-serif" font-weight="800">Revenue by Location Over Time</text>
+          <polyline points="30,150 70,138 110,145 150,130 190,120 230,110 270,100 310,92 350,85" fill="none" stroke="#E8612A" stroke-width="2" stroke-linecap="round"/>
+          <polyline points="30,160 70,152 110,155 150,145 190,140 230,135 270,128 310,125 350,118" fill="none" stroke="#2D8B55" stroke-width="2" stroke-linecap="round"/>
+          <polyline points="30,165 70,162 110,168 150,158 190,155 230,150 270,148 310,142 350,138" fill="none" stroke="#8B1A1A" stroke-width="2" stroke-linecap="round"/>
+          <polyline points="30,172 70,168 110,175 150,165 190,160 230,158 270,155 310,150 350,145" fill="none" stroke="#D4A843" stroke-width="2" stroke-linecap="round"/>
+          <text x="30" y="190" fill="#aaa" font-size="7" font-family="Montserrat,sans-serif">Jan</text>
+          <text x="110" y="190" fill="#aaa" font-size="7" font-family="Montserrat,sans-serif">Mar</text>
+          <text x="190" y="190" fill="#aaa" font-size="7" font-family="Montserrat,sans-serif">May</text>
+          <text x="270" y="190" fill="#aaa" font-size="7" font-family="Montserrat,sans-serif">Jul</text>
+          <text x="350" y="190" fill="#aaa" font-size="7" font-family="Montserrat,sans-serif">Sep</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- TAB 2: Purchases -->
+    <div class="showcase-screen">
+      <svg viewBox="0 0 1100 480" class="dash-svg" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1100" height="480" fill="#FFF8F0"/>
+        <rect width="1100" height="52" fill="#8B1A1A"/>
+        <text x="200" y="30" fill="white" font-family="Montserrat,sans-serif" font-size="13" font-weight="800">Performance Dashboard</text>
+        <rect x="700" y="40" width="75" height="12" rx="2" fill="rgba(255,255,255,.15)"/>
+        <text x="710" y="49" fill="white" font-family="Montserrat,sans-serif" font-size="7" font-weight="700">Purchases</text>
+        <!-- KPI row -->
+        <g transform="translate(190,70)">
+          <rect x="0" y="0" width="180" height="60" rx="6" fill="white" stroke="#eee" stroke-width="1"/>
+          <text x="16" y="20" fill="#8B1A1A" font-size="8" font-family="Montserrat,sans-serif" font-weight="600">TOTAL PURCHASES</text>
+          <text x="16" y="45" fill="#1B2D4F" font-size="20" font-family="Montserrat,sans-serif" font-weight="900">$22,189</text>
+          <rect x="200" y="0" width="180" height="60" rx="6" fill="white" stroke="#eee" stroke-width="1"/>
+          <text x="216" y="20" fill="#8B1A1A" font-size="8" font-family="Montserrat,sans-serif" font-weight="600">INGREDIENTS TRACKED</text>
+          <text x="216" y="45" fill="#1B2D4F" font-size="20" font-family="Montserrat,sans-serif" font-weight="900">12</text>
+          <rect x="400" y="0" width="180" height="60" rx="6" fill="white" stroke="#eee" stroke-width="1"/>
+          <text x="416" y="20" fill="#8B1A1A" font-size="8" font-family="Montserrat,sans-serif" font-weight="600">COST VAR (MoM)</text>
+          <text x="416" y="45" fill="#8B1A1A" font-size="20" font-family="Montserrat,sans-serif" font-weight="900">-3.1%</text>
+        </g>
+        <!-- Purchase Table -->
+        <g transform="translate(190,148)">
+          <rect x="0" y="0" width="810" height="180" rx="6" fill="white" stroke="#eee" stroke-width="1"/>
+          <text x="16" y="24" fill="#1B2D4F" font-size="10" font-family="Montserrat,sans-serif" font-weight="800">December Purchase Summary</text>
+          <rect x="16" y="36" width="780" height="18" rx="3" fill="#D4A843" opacity=".12"/>
+          <text x="28" y="49" fill="#8B1A1A" font-size="7" font-family="Montserrat,sans-serif" font-weight="700">INGREDIENT</text>
+          <text x="220" y="49" fill="#8B1A1A" font-size="7" font-family="Montserrat,sans-serif" font-weight="700">UNIT</text>
+          <text x="340" y="49" fill="#8B1A1A" font-size="7" font-family="Montserrat,sans-serif" font-weight="700">QTY PURCHASED</text>
+          <text x="500" y="49" fill="#8B1A1A" font-size="7" font-family="Montserrat,sans-serif" font-weight="700">UNIT COST</text>
+          <text x="640" y="49" fill="#8B1A1A" font-size="7" font-family="Montserrat,sans-serif" font-weight="700">TOTAL COST</text>
+          <text x="750" y="49" fill="#8B1A1A" font-size="7" font-family="Montserrat,sans-serif" font-weight="700">% BUDGET</text>
+          <!-- Rows -->
+          <text x="28" y="72" fill="#333" font-size="8" font-family="Montserrat,sans-serif">Chicken Breast</text>
+          <text x="220" y="72" fill="#666" font-size="8" font-family="Montserrat,sans-serif">Kg</text>
+          <text x="360" y="72" fill="#333" font-size="8" font-family="Montserrat,sans-serif">850</text>
+          <text x="510" y="72" fill="#333" font-size="8" font-family="Montserrat,sans-serif">$3.45</text>
+          <text x="650" y="72" fill="#1B2D4F" font-size="8" font-family="Montserrat,sans-serif" font-weight="700">$2,933</text>
+          <rect x="748" y="62" width="40" height="14" rx="3" fill="#E8612A" opacity=".12"/>
+          <text x="756" y="73" fill="#E8612A" font-size="7" font-family="Montserrat,sans-serif" font-weight="700">13.2%</text>
+
+          <text x="28" y="92" fill="#333" font-size="8" font-family="Montserrat,sans-serif">Lamb Leg</text>
+          <text x="220" y="92" fill="#666" font-size="8" font-family="Montserrat,sans-serif">Kg</text>
+          <text x="360" y="92" fill="#333" font-size="8" font-family="Montserrat,sans-serif">340</text>
+          <text x="510" y="92" fill="#333" font-size="8" font-family="Montserrat,sans-serif">$8.20</text>
+          <text x="650" y="92" fill="#1B2D4F" font-size="8" font-family="Montserrat,sans-serif" font-weight="700">$2,788</text>
+          <rect x="748" y="82" width="40" height="14" rx="3" fill="#E8612A" opacity=".12"/>
+          <text x="756" y="93" fill="#E8612A" font-size="7" font-family="Montserrat,sans-serif" font-weight="700">12.6%</text>
+
+          <text x="28" y="112" fill="#333" font-size="8" font-family="Montserrat,sans-serif">Basmati Rice</text>
+          <text x="220" y="112" fill="#666" font-size="8" font-family="Montserrat,sans-serif">Kg</text>
+          <text x="360" y="112" fill="#333" font-size="8" font-family="Montserrat,sans-serif">620</text>
+          <text x="510" y="112" fill="#333" font-size="8" font-family="Montserrat,sans-serif">$1.80</text>
+          <text x="650" y="112" fill="#1B2D4F" font-size="8" font-family="Montserrat,sans-serif" font-weight="700">$1,116</text>
+          <rect x="748" y="102" width="40" height="14" rx="3" fill="#D4A843" opacity=".15"/>
+          <text x="758" y="113" fill="#D4A843" font-size="7" font-family="Montserrat,sans-serif" font-weight="700">5.0%</text>
+
+          <text x="28" y="132" fill="#333" font-size="8" font-family="Montserrat,sans-serif">Onions</text>
+          <text x="220" y="132" fill="#666" font-size="8" font-family="Montserrat,sans-serif">Kg</text>
+          <text x="360" y="132" fill="#333" font-size="8" font-family="Montserrat,sans-serif">480</text>
+          <text x="510" y="132" fill="#333" font-size="8" font-family="Montserrat,sans-serif">$0.95</text>
+          <text x="650" y="132" fill="#1B2D4F" font-size="8" font-family="Montserrat,sans-serif" font-weight="700">$456</text>
+          <rect x="748" y="122" width="40" height="14" rx="3" fill="#2D8B55" opacity=".12"/>
+          <text x="758" y="133" fill="#2D8B55" font-size="7" font-family="Montserrat,sans-serif" font-weight="700">2.1%</text>
+
+          <line x1="16" y1="146" x2="796" y2="146" stroke="#eee" stroke-width="1"/>
+          <text x="28" y="166" fill="#1B2D4F" font-size="8" font-family="Montserrat,sans-serif" font-weight="800">Grand Total</text>
+          <text x="650" y="166" fill="#1B2D4F" font-size="9" font-family="Montserrat,sans-serif" font-weight="900">$22,189</text>
+        </g>
+        <!-- Cost per Unit line chart -->
+        <g transform="translate(190,346)">
+          <rect x="0" y="0" width="810" height="120" rx="6" fill="white" stroke="#eee" stroke-width="1"/>
+          <text x="16" y="24" fill="#1B2D4F" font-size="10" font-family="Montserrat,sans-serif" font-weight="800">Cost per Unit — Last 6 Months</text>
+          <circle cx="340" cy="16" r="3" fill="#E8612A"/><text x="348" y="20" fill="#666" font-size="7" font-family="Montserrat,sans-serif">Chicken Breast/Kg</text>
+          <circle cx="460" cy="16" r="3" fill="#2D8B55"/><text x="468" y="20" fill="#666" font-size="7" font-family="Montserrat,sans-serif">Lamb Leg/Kg</text>
+          <circle cx="560" cy="16" r="3" fill="#D4A843"/><text x="568" y="20" fill="#666" font-size="7" font-family="Montserrat,sans-serif">Basmati Rice/Kg</text>
+          <polyline points="40,80 160,78 280,82 400,76 520,72 640,70 760,68" fill="none" stroke="#E8612A" stroke-width="2" stroke-linecap="round"/>
+          <polyline points="40,50 160,52 280,48 400,46 520,50 640,45 760,42" fill="none" stroke="#2D8B55" stroke-width="2" stroke-linecap="round"/>
+          <polyline points="40,92 160,90 280,94 400,88 520,90 640,86 760,85" fill="none" stroke="#D4A843" stroke-width="2" stroke-linecap="round"/>
+          <text x="40" y="110" fill="#aaa" font-size="7" font-family="Montserrat,sans-serif">Jul</text>
+          <text x="160" y="110" fill="#aaa" font-size="7" font-family="Montserrat,sans-serif">Aug</text>
+          <text x="280" y="110" fill="#aaa" font-size="7" font-family="Montserrat,sans-serif">Sep</text>
+          <text x="400" y="110" fill="#aaa" font-size="7" font-family="Montserrat,sans-serif">Oct</text>
+          <text x="520" y="110" fill="#aaa" font-size="7" font-family="Montserrat,sans-serif">Nov</text>
+          <text x="640" y="110" fill="#aaa" font-size="7" font-family="Montserrat,sans-serif">Dec</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRICING ===== -->
+<section class="pricing" id="pricing">
+  <div class="container">
+    <div class="section-tag reveal" data-en="Pricing" data-es="Precios">Pricing</div>
+    <h2 class="section-title reveal" data-en="Plans that scale with your operation" data-es="Planes que escalan con tu operación">Plans that scale with your operation</h2>
+    <p class="section-sub reveal" data-en="From single-location visibility to full multi-unit intelligence." data-es="Desde visibilidad en un solo local hasta inteligencia completa multi-unidad.">From single-location visibility to full multi-unit intelligence.</p>
+    <div class="pricing-grid">
+      <!-- Operational -->
+      <div class="price-card reveal">
+        <div class="price-name" data-en="Operational" data-es="Operacional">Operational</div>
+        <div class="price-amount">$80<span>/mo</span></div>
+        <div class="price-period" data-en="per location" data-es="por locación">per location</div>
+        <div class="price-desc" data-en="Designed for restaurants that want visibility into their performance." data-es="Diseñado para restaurantes que quieren visibilidad de su rendimiento.">Designed for restaurants that want visibility into their performance.</div>
+        <ul class="price-features">
+          <li data-en="Sales performance dashboards" data-es="Dashboards de rendimiento de ventas">Sales performance dashboards</li>
+          <li data-en="Product ranking analysis" data-es="Análisis de ranking de productos">Product ranking analysis</li>
+          <li data-en="Revenue trend monitoring" data-es="Monitoreo de tendencias de ingresos">Revenue trend monitoring</li>
+          <li data-en="Guest and order analytics" data-es="Analítica de clientes y pedidos">Guest and order analytics</li>
+          <li data-en="Multi-location overview" data-es="Vista multi-locación">Multi-location overview</li>
+        </ul>
+        <button class="price-btn" data-en="Get Started" data-es="Comenzar">Get Started</button>
+      </div>
+      <!-- Management -->
+      <div class="price-card featured reveal reveal-delay-1">
+        <div class="price-badge" data-en="Most Popular" data-es="Más Popular">Most Popular</div>
+        <div class="price-name" data-en="Management" data-es="Management">Management</div>
+        <div class="price-amount">$120<span>/mo</span></div>
+        <div class="price-period" data-en="per location" data-es="por locación">per location</div>
+        <div class="price-desc" data-en="Adds operational cost control capabilities for profitability-focused restaurants." data-es="Agrega capacidades de control de costos operativos para restaurantes enfocados en rentabilidad.">Adds operational cost control capabilities for profitability-focused restaurants.</div>
+        <ul class="price-features">
+          <li data-en="Everything in Operational" data-es="Todo lo del plan Operacional">Everything in Operational</li>
+          <li data-en="Purchasing monitoring" data-es="Monitoreo de compras">Purchasing monitoring</li>
+          <li data-en="Supplier price tracking" data-es="Seguimiento de precios de proveedores">Supplier price tracking</li>
+          <li data-en="Ingredient cost analysis" data-es="Análisis de costos de ingredientes">Ingredient cost analysis</li>
+          <li data-en="Supplier compliance dashboards" data-es="Dashboards de cumplimiento de proveedores">Supplier compliance dashboards</li>
+        </ul>
+        <button class="price-btn" data-en="Get Started" data-es="Comenzar">Get Started</button>
+      </div>
+      <!-- Intelligence -->
+      <div class="price-card reveal reveal-delay-2">
+        <div class="price-name" data-en="Intelligence" data-es="Intelligence">Intelligence</div>
+        <div class="price-amount">$250<span>/mo</span></div>
+        <div class="price-period" data-en="per location" data-es="por locación">per location</div>
+        <div class="price-desc" data-en="Full operational intelligence system for restaurant groups seeking data-driven management." data-es="Sistema completo de inteligencia operativa para grupos gastronómicos que buscan gestión basada en datos.">Full operational intelligence system for restaurant groups seeking data-driven management.</div>
+        <ul class="price-features">
+          <li data-en="Everything in Management" data-es="Todo lo del plan Management">Everything in Management</li>
+          <li data-en="Internal audit platform" data-es="Plataforma de auditorías internas">Internal audit platform</li>
+          <li data-en="Mystery shopper module" data-es="Módulo de cliente incógnito">Mystery shopper module</li>
+          <li data-en="Custom dashboards & metrics" data-es="Dashboards y métricas personalizadas">Custom dashboards & metrics</li>
+          <li data-en="Tailored management tools" data-es="Herramientas de gestión a medida">Tailored management tools</li>
+        </ul>
+        <button class="price-btn" data-en="Get Started" data-es="Comenzar">Get Started</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DIFFERENTIATORS ===== -->
+<section class="diff">
+  <div class="container">
+    <div style="text-align:center">
+      <div class="section-tag reveal" data-en="Why Us" data-es="Por Qué Nosotros">Why Us</div>
+      <h2 class="section-title reveal" style="color:var(--navy);max-width:600px;margin:0 auto 8px" data-en="Built for restaurants. Not adapted from generic BI." data-es="Diseñado para restaurantes. No adaptado de BI genérico.">Built for restaurants. Not adapted from generic BI.</h2>
+    </div>
+    <div class="diff-grid">
+      <div class="diff-item reveal">
+        <div class="diff-icon"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 3v18"/></svg></div>
+        <h4 data-en="Restaurant-Specific" data-es="Específico para Restaurantes">Restaurant-Specific</h4>
+        <p data-en="Metrics designed for food service operations" data-es="Métricas diseñadas para operaciones gastronómicas">Metrics designed for food service operations</p>
+      </div>
+      <div class="diff-item reveal reveal-delay-1">
+        <div class="diff-icon"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h0a2 2 0 002-2M9 5a2 2 0 012-2h0a2 2 0 012 2M9 14l2 2 4-4"/></svg></div>
+        <h4 data-en="Integrated Audits" data-es="Auditorías Integradas">Integrated Audits</h4>
+        <p data-en="Operational checklists & quality control" data-es="Checklists operativos y control de calidad">Operational checklists & quality control</p>
+      </div>
+      <div class="diff-item reveal reveal-delay-2">
+        <div class="diff-icon"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 16v4M4.93 4.93l2.83 2.83M14.24 14.24l2.83 2.83M2 12h4M16 12h4M4.93 19.07l2.83-2.83M14.24 7.76l2.83-2.83"/></svg></div>
+        <h4 data-en="Supplier Compliance" data-es="Control de Proveedores">Supplier Compliance</h4>
+        <p data-en="Price cap monitoring & cost alerts" data-es="Monitoreo de topes de precio y alertas">Price cap monitoring & cost alerts</p>
+      </div>
+      <div class="diff-item reveal reveal-delay-3">
+        <div class="diff-icon"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 14a1 1 0 01-1-1V5a1 1 0 011-1h16a1 1 0 011 1v8a1 1 0 01-1 1M7 18h10M10 14v4M14 14v4"/></svg></div>
+        <h4 data-en="100% Cloud" data-es="100% en la Nube">100% Cloud</h4>
+        <p data-en="No installation required, any device" data-es="Sin instalación, cualquier dispositivo">No installation required, any device</p>
+      </div>
+      <div class="diff-item reveal reveal-delay-4">
+        <div class="diff-icon"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg></div>
+        <h4 data-en="Your Data" data-es="Tus Datos">Your Data</h4>
+        <p data-en="Full ownership & encrypted storage" data-es="Propiedad total y almacenamiento encriptado">Full ownership & encrypted storage</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="cta-section" id="cta">
+  <div class="container">
+    <h2 class="reveal"><span data-en="Ready to see your" data-es="¿Listo para ver tu">Ready to see your</span> <span class="accent" data-en="operation clearly?" data-es="operación con claridad?">operation clearly?</span></h2>
+    <p class="reveal" data-en="Schedule a 30-minute live demonstration. We'll show you real dashboards, cost monitoring tools, and operational audit workflows." data-es="Agendá una demostración en vivo de 30 minutos. Te mostramos dashboards reales, herramientas de control de costos y flujos de auditoría operativa.">Schedule a 30-minute live demonstration. We'll show you real dashboards, cost monitoring tools, and operational audit workflows.</p>
+    <div class="cta-actions reveal">
+      <a href="mailto:info@globalventureusa.com" class="btn-primary" data-en="Schedule a Demo" data-es="Agenda una Demo">Schedule a Demo</a>
+      <a href="#hero" class="btn-outline" data-en="Back to Top" data-es="Volver Arriba">Back to Top</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container">
+    <div class="footer-copy">&copy; 2026 Global Venture USA. <span data-en="All rights reserved." data-es="Todos los derechos reservados.">All rights reserved.</span></div>
+    <div class="footer-links">
+      <a href="#platform" data-en="Platform" data-es="Plataforma">Platform</a>
+      <a href="#pricing" data-en="Pricing" data-es="Precios">Pricing</a>
+      <a href="#cta" data-en="Contact" data-es="Contacto">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// LANGUAGE TOGGLE
+let currentLang='en';
+function toggleLang(){
+  currentLang=currentLang==='en'?'es':'en';
+  document.documentElement.setAttribute('data-lang',currentLang);
+  document.querySelector('.lang-toggle').textContent=currentLang==='en'?'ES':'EN';
+  document.querySelectorAll('[data-en]').forEach(el=>{
+    const t=el.getAttribute('data-'+currentLang);
+    if(t){
+      if(el.childElementCount===0)el.textContent=t;
+      else{el.childNodes.forEach(n=>{if(n.nodeType===3&&n.textContent.trim())n.textContent=t})}
+    }
+  });
+}
+
+// NAV SCROLL
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>60)});
+
+// REVEAL ON SCROLL
+const reveals=document.querySelectorAll('.reveal');
+const revealObs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');revealObs.unobserve(e.target)}});
+},{threshold:0.15});
+reveals.forEach(el=>revealObs.observe(el));
+
+// COUNTER ANIMATION
+const counters=document.querySelectorAll('.stat-num[data-count]');
+const counterObs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const el=e.target;
+      const end=parseInt(el.getAttribute('data-count'));
+      const suffix=el.getAttribute('data-suffix')||'';
+      const txt=el.getAttribute('data-text');
+      if(txt){el.textContent=txt;counterObs.unobserve(el);return}
+      if(end===0){counterObs.unobserve(el);return}
+      let current=0;
+      const step=Math.max(1,Math.floor(end/40));
+      const timer=setInterval(()=>{
+        current+=step;
+        if(current>=end){current=end;clearInterval(timer)}
+        el.textContent=current+suffix;
+      },30);
+      counterObs.unobserve(el);
+    }
+  });
+},{threshold:0.5});
+counters.forEach(el=>counterObs.observe(el));
+
+// DASHBOARD TABS
+function showTab(i){
+  document.querySelectorAll('.showcase-tab').forEach((t,idx)=>t.classList.toggle('active',idx===i));
+  document.querySelectorAll('.showcase-screen').forEach((s,idx)=>s.classList.toggle('active',idx===i));
+}
+
+// PARALLAX HERO FLOATS
+document.addEventListener('mousemove',e=>{
+  const x=(e.clientX/window.innerWidth-.5)*20;
+  const y=(e.clientY/window.innerHeight-.5)*20;
+  const m=document.querySelector('.dash-main');
+  const s=document.querySelector('.dash-secondary');
+  const n=document.querySelector('.dash-mini');
+  if(m)m.style.transform=`perspective(1200px) rotateY(${-8+x*.3}deg) rotateX(${3+y*.3}deg)`;
+  if(s)s.style.transform=`perspective(1200px) rotateY(${-5+x*.2}deg) rotateX(${2+y*.2}deg)`;
+  if(n)n.style.transform=`perspective(1200px) rotateY(${-12+x*.4}deg) rotateX(${5+y*.4}deg)`;
+});
+</script>
+</body>
+</html>
